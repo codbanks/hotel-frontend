@@ -1,0 +1,121 @@
+:root {
+  --bg-dark: #0e1625;
+  --bg-panel: #151b26;
+  --pumpkin-gold: #ffb547;
+  --text-white: #ffffff;
+  --text-muted: #9ca3af;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --table-stripe: rgba(255, 255, 255, 0.02);
+  --hover-glow: rgba(255, 181, 71, 0.1);
+}
+
+.invoice-list-container {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--bg-dark);
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.loading-text {
+  color: var(--pumpkin-gold);
+  text-align: center;
+  margin-top: 40px;
+}
+
+.list-header h2 {
+  color: var(--pumpkin-gold);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 20px;
+  border: 1px dashed var(--border-subtle);
+  text-align: center;
+}
+
+/* Table Styling */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  background: var(--bg-panel);
+}
+
+.invoice-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.invoice-list-table thead th {
+  background-color: #1a2230;
+  color: var(--pumpkin-gold);
+  text-align: left;
+  padding: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border-bottom: 2px solid var(--border-subtle);
+}
+
+.invoice-list-table tbody td {
+  padding: 14px 16px;
+  color: var(--text-white);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.95rem;
+}
+
+/* Row Styling */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clickable-row:nth-child(even) {
+  background-color: var(--table-stripe);
+}
+
+.clickable-row:hover {
+  background-color: var(--hover-glow);
+}
+
+/* Badges & Highlights */
+.highlight-text {
+  font-weight: 700;
+  color: var(--pumpkin-gold);
+  font-family: 'Courier New', monospace;
+}
+
+.room-badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* PDF Link */
+.action-col {
+  text-align: center;
+}
+
+.pdf-link {
+  color: var(--pumpkin-gold);
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid var(--pumpkin-gold);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.pdf-link:hover {
+  background-color: var(--pumpkin-gold);
+  color: #000;
+}

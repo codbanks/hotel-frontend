@@ -1,0 +1,147 @@
+:root {
+  --staff-accent: #47b5ff; /* Blue accent for Staff to distinguish from Gold */
+}
+
+.staff-modal-content {
+  background: #151b26;
+  width: 90%;
+  max-width: 900px;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+  border: 1px solid rgba(71, 181, 255, 0.2);
+}
+
+.staff-header {
+  background: linear-gradient(to right, #0f172a, #1e293b);
+  padding: 20px 30px;
+  border-bottom: 2px solid var(--staff-accent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.staff-header h2 {
+  color: var(--staff-accent);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.staff-input-section {
+  padding: 20px 30px;
+  background: #0e1625;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.staff-input-group label {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.staff-input-group input, .staff-input-group select {
+  width: 100%;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  outline: none;
+}
+
+.staff-input-group input:focus {
+  border-color: var(--staff-accent);
+}
+
+.staff-table-wrapper {
+  padding: 0 30px 20px 30px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.staff-table th {
+  text-align: left;
+  color: var(--staff-accent);
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+  font-size: 0.9rem;
+}
+
+.staff-table td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.staff-actions-footer {
+  padding: 20px 30px;
+  background: #0f172a;
+  border-top: 1px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.staff-btn-save {
+  background: var(--staff-accent);
+  color: #000;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.staff-btn-save:hover {
+  background: #fff;
+}
+
+.staff-total {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.staff-total span {
+  color: var(--staff-accent);
+  font-weight: bold;
+}
+
+.staff-row {
+    background-color: #33331a !important; /* Slightly distinct background */
+    border-left: 3px solid #ffcc00; /* Yellow left border */
+}
+
+.type-tag {
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+}
+
+.type-guest {
+    color: #5bc0de;
+    border: 1px solid #5bc0de;
+}
+
+.type-staff {
+    color: #ffcc00;
+    border: 1px solid #ffcc00;
+}

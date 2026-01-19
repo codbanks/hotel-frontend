@@ -1,0 +1,120 @@
+/* --- Root Container --- */
+.financial-report-scroll-container {
+    background-color: #0e1625;
+    height: 100vh;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory; /* This creates the "slide" effect */
+    scroll-behavior: smooth;
+}
+
+/* --- Fixed Header --- */
+.sticky-date-navigator {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    background: #172133;
+    padding: 15px 30px;
+    border-bottom: 2px solid #ffb547;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.date-badge {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 20px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid rgba(255, 181, 71, 0.3);
+}
+
+.date-badge span {
+    color: #ffb547;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.date-badge input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+}
+
+/* --- Sections & Snap Effect --- */
+.snap-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.report-section {
+    height: 100vh; /* Occupies full screen */
+    scroll-snap-align: start; /* Snaps to the top */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 40px 40px 40px; /* Padding for sticky header space */
+    box-sizing: border-box;
+}
+
+.section-card {
+    width: 100%;
+    max-width: 1200px;
+    background: #172133;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    overflow: hidden;
+    animation: fadeIn 0.8s ease;
+}
+
+/* --- Table Styles (Preserved) --- */
+.fin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.fin-table th {
+    background: #0e1625;
+    color: #9ca3af;
+    padding: 15px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.fin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: white;
+}
+
+.total-row td {
+    background: rgba(255, 181, 71, 0.1);
+    color: #ffb547;
+    font-weight: 800;
+    border-top: 2px solid #ffb547;
+}
+
+.nav-btn {
+    background: #ffb547;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    color: #0e1625;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

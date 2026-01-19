@@ -1,0 +1,263 @@
+:root {
+  --pumpkin-accent: #ffb547;
+  --bg-modal: #121212;
+  --bg-input: #1f1f1f;
+  --text-main: #e0e0e0;
+  --border-color: rgba(255, 255, 255, 0.15);
+  --success-green: #00c853;
+}
+
+.invoice-page {
+  padding: 20px;
+  background-color: #0e1625;
+  min-height: 100vh;
+  position: relative; /* Base for positioning */
+}
+
+/* New Invoice Button */
+.new-invoice-btn {
+  background-color: var(--pumpkin-accent);
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(255, 181, 71, 0.3);
+  transition: all 0.2s;
+}
+
+.new-invoice-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 181, 71, 0.5);
+}
+
+/* --- 1. FULLSCREEN MODAL (Level 1) --- */
+.fullscreen-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85); /* Dark background */
+  backdrop-filter: blur(8px); /* Blurs the list view behind it */
+  z-index: 1000; /* High, but lower than confirm */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-fixed {
+  background-color: var(--bg-modal);
+  width: 95%;
+  max-width: 1400px;
+  height: 90vh;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.modal-content-fixed {
+  padding: 40px;
+  overflow-y: auto;
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- 2. CONFIRMATION OVERLAY (Level 2 - The Fix) --- */
+.confirm-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Dim the modal */
+  backdrop-filter: blur(4px); /* Blur the modal */
+  z-index: 2000; /* HIGHER than modal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.confirm-box {
+  background: #1e1e1e;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid var(--pumpkin-accent);
+  box-shadow: 0 0 30px rgba(255, 181, 71, 0.2);
+  text-align: center;
+  width: 400px;
+  max-width: 90%;
+}
+
+.confirm-box h3 {
+  color: var(--pumpkin-accent);
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.confirm-box p {
+  color: #ddd;
+  font-size: 1.1rem;
+}
+
+.confirm-box .sub-text {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 25px;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-confirm {
+  background: var(--pumpkin-accent);
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* --- 3. SUCCESS TOAST (Level 3 - The Fix) --- */
+.success-toast {
+  position: fixed;
+  top: 30px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e2a38;
+  border-left: 5px solid var(--success-green);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  z-index: 3000; /* Highest layer */
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 300px;
+  animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-toast .icon {
+  background: var(--success-green);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.success-toast .text {
+  display: flex;
+  flex-direction: column;
+}
+
+.success-toast strong {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.success-toast span {
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translate(-50%, -100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* --- Existing Styles for Form --- */
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--pumpkin-accent);
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.header-brand h1 { color: var(--pumpkin-accent); margin: 0; font-size: 1.8rem; }
+.meta-group label { color: var(--pumpkin-accent); font-weight: 700; margin-bottom: 5px; display: block;}
+
+/* Invoice Number Visibility Fix */
+.invoiceNo {
+  background: #252525;
+  border: 2px solid var(--pumpkin-accent);
+  color: #fff;
+  font-size: 1.4rem;
+  padding: 10px;
+  width: 200px;
+  text-align: right;
+  border-radius: 5px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.input-grid-section {
+  margin-bottom: 20px;
+  background: rgba(255,255,255,0.03);
+  padding: 20px;
+  border-radius: 8px;
+}
+.input-grid-section h3 { margin-top: 0; color: #aaa; font-size: 0.9rem; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px; }
+
+.guest-info { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+.stay-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+
+.input-group { display: flex; flex-direction: column; }
+.input-group label { font-size: 0.8rem; color: #bbb; margin-bottom: 6px; }
+.input-group input { background: var(--bg-input); border: 1px solid var(--border-color); color: #fff; padding: 10px; border-radius: 4px; outline: none; }
+.input-group input:focus { border-color: var(--pumpkin-accent); }
+
+/* Table */
+.invoice-table th { background: #2a2a2a; color: var(--pumpkin-accent); padding: 12px; text-align: left; border: 1px solid var(--border-color); }
+.invoice-table td { border: 1px solid var(--border-color); padding: 0; }
+.invoice-table input { width: 100%; height: 45px; background: transparent; border: none; color: #fff; padding: 0 12px; box-sizing: border-box; }
+.invoice-table input:focus { background: rgba(255, 181, 71, 0.05); }
+
+.row-remove { background: #d32f2f; color: white; border: none; width: 100%; height: 45px; cursor: pointer; font-size: 1.2rem; transition: background 0.2s; }
+.row-remove:hover { background: #b71c1c; }
+
+.add-row { margin-top: 15px; background: transparent; border: 1px dashed var(--pumpkin-accent); color: var(--pumpkin-accent); padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+.add-row:hover { background: rgba(255, 181, 71, 0.1); }
+
+/* Footer Layout */
+.footer-layout { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px; }
+.actions-left { display: flex; gap: 10px; }
+
+.totals { background: #1a1a1a; padding: 20px; border-radius: 8px; width: 300px; border: 1px solid var(--border-color); }
+.totals-row { display: flex; justify-content: space-between; margin-bottom: 10px; color: #ccc; }
+.grand-total { border-top: 1px solid #555; padding-top: 10px; color: var(--pumpkin-accent); font-size: 1.3rem; font-weight: bold; margin-bottom: 0; }
+
+.save-btn { background: var(--pumpkin-accent); color: #000; border: none; padding: 12px 30px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 15px rgba(255,181,71,0.3); }
+.save-btn:hover { box-shadow: 0 6px 20px rgba(255,181,71,0.5); }
+.cancel-btn { background: transparent; color: #fff; border: 1px solid #555; padding: 12px 30px; border-radius: 6px; cursor: pointer; }
+
+.back-floating-center { position: absolute; top: 20px; background: #000; color: var(--pumpkin-accent); border: 1px solid var(--pumpkin-accent); padding: 8px 16px; border-radius: 20px; cursor: pointer; z-index: 1100; font-weight: 600; }
+.back-floating-center:hover { background: var(--pumpkin-accent); color: #000; }

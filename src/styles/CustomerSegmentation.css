@@ -1,0 +1,132 @@
+:root {
+    --bg-dark: #0e1625;
+    --bg-card: #172133;
+    --text-primary: #ffffff;
+    --text-dim: #9ca3af;
+    --accent: #ffb547;
+    --accent-dim: rgba(255, 181, 71, 0.15);
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+.report-container {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+}
+
+.report-header h2 {
+    color: var(--accent);
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
+
+.date-badge {
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* TABLE STYLING */
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.segmentation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+/* Headers */
+.segmentation-table thead th {
+    background-color: var(--bg-card);
+    color: var(--text-dim);
+    padding: 12px 10px;
+    border: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.segmentation-table th.group-header {
+    background-color: var(--accent-dim);
+    color: var(--accent);
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: none;
+}
+
+.segmentation-table .sub-header th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+/* Sticky First Column (Name) */
+.sticky-col {
+    position: sticky;
+    left: 0;
+    background-color: var(--bg-dark); /* Match bg to hide scroll */
+    z-index: 2;
+    border-right: 2px solid var(--border);
+}
+
+.segmentation-table tbody tr:nth-child(even) .sticky-col {
+    background-color: #131c2e; /* Slightly lighter for striping */
+}
+
+/* Body */
+.segmentation-table td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    text-align: right;
+}
+
+.segmentation-table td.text-left {
+    text-align: left;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.segmentation-table td.currency {
+    font-family: 'Courier New', monospace;
+    letter-spacing: -0.5px;
+}
+
+/* Striping & Hover */
+.segmentation-table tbody tr:nth-child(even) {
+    background-color: rgba(255,255,255,0.03);
+}
+
+.segmentation-table tbody tr:hover td {
+    background-color: rgba(255, 181, 71, 0.05);
+}
+
+/* Footer Totals */
+.segmentation-table tfoot .total-row td {
+    background-color: var(--accent-dim);
+    color: var(--accent);
+    font-weight: 700;
+    border-top: 2px solid var(--accent);
+}
+
+.segmentation-table tfoot .sticky-col {
+    background-color: #2a2418 !important; /* Dark gold background for sticky footer */
+    color: var(--accent);
+}

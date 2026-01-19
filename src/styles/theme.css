@@ -1,0 +1,60 @@
+/* theme.css - The DNA of your app */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    /* --- COLOR PALETTE --- */
+    --bg-app: #0e0e0e;          /* Main dark background */
+    --bg-panel: #151313;        /* Sidebar/Panels */
+    --bg-card: #161414;         /* Cards */
+    
+    --text-main: #f4f4f4;       /* Main White */
+    --text-muted: #b7a79a;      /* Muted Gold/Grey */
+    
+    --gold: #c6a84e;            /* Primary Gold */
+    --gold-bright: #e0b94a;     /* Hover Gold */
+    --pumpkin: #e06608;         /* Accent Orange */
+    
+    /* --- DIMENSIONS --- */
+    --sidebar-width: 260px;     /* Fixed width for expanded sidebar */
+    --sidebar-width-collapsed: 80px;
+    --header-height: 70px;
+    
+    /* --- EFFECTS --- */
+    --shadow-card: 0 8px 30px rgba(198,168,78,0.12);
+    --radius-lg: 2rem;
+    --radius-md: 1rem;
+    --transition-speed: 0.3s;
+}
+
+/* --- RESET & BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden; /* Prevent body scroll, we scroll inside the layout */
+    font-size: 14px;  /* Base font size */
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-app); 
+}
+::-webkit-scrollbar-thumb {
+    background: #333; 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold); 
+}

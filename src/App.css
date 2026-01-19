@@ -1,0 +1,102 @@
+/* General App Layout (Adapted to use global.css variables) */
+
+/* The .app-container structure is likely unnecessary if you are using .app-shell from global.css, 
+   but we'll keep it for structure, replacing conflicting styles. */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    /* Use the global background color variable */
+    background: var(--bg-color, #0e0e0e); 
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 💻 FIX FOR LEDGER WIDTH: .main-content now correctly uses the sidebar variable */
+.main-content {
+    /* Set margin dynamically using the global variable (defaulting to 180px) */
+    margin-left: var(--sidebar-width, 180px); 
+    
+    /* Calculate width dynamically */
+    width: calc(100% - var(--sidebar-width, 180px)); 
+    
+    /* Ensure it acts as a flexible container for responsiveness */
+    flex: 1; 
+    
+    /* Keep padding, but adjust for the dark theme feel */
+    padding: var(--ui-gap, 1.5rem); 
+    box-sizing: border-box;
+    
+    /* Transition for responsive sidebar changes */
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+/* Handling Compact Sidebar State (if applicable) */
+.app-sidebar.compact + .main-content {
+    /* Assuming a compact width of 80px is used */
+    margin-left: 80px; 
+    width: calc(100% - 80px);
+}
+
+
+/* --- Generic/Conflicting Styles Removed or Cleaned Up --- */
+
+/* Card style: Removed to rely on card-bg and box-shadow from global.css */
+.card {
+    background: var(--card-bg, #161414);
+    padding: 16px;
+    border-radius: var(--radius, 2rem);
+    box-shadow: var(--card-shadow, 0 8px 30px rgba(198,168,78,0.12));
+    margin-bottom: 16px;
+    color: var(--text-color);
+}
+
+/* Buttons: Removed generic styles as Ledger's CSS handles specific button styles, 
+   and global.css handles the dark theme base. */
+/* Keep only a base if needed, but Ledger buttons are highly customized. */
+/* If you need a base button style for non-Ledger elements:
+button {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+button:hover {
+    background: var(--gold-bright);
+}
+*/
+
+/* Inputs: Removed generic light theme inputs */
+/* If you need a base input style for non-Ledger elements:
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+*/
+
+/* Tables: Removed generic styles to rely on LedgerTable's specific styling */
+/*
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th, .table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-color);
+}
+*/
+
+/* Headings: Removed generic styles */
+/*
+h2 {
+    color: var(--gold-bright);
+}
+*/

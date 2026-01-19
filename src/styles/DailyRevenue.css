@@ -1,0 +1,95 @@
+.daily-revenue-wrapper {
+    background-color: #080c14;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.loading-screen {
+    background: #080c14;
+    color: #f59e0b;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.report-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111a2e;
+    padding: 20px 40px;
+    border-radius: 12px;
+    border-bottom: 4px solid #f59e0b;
+    margin-bottom: 30px;
+}
+
+.nav-main { display: flex; align-items: center; gap: 40px; }
+.nav-title { text-align: center; }
+.nav-title h1 { margin: 0; font-size: 1.8rem; color: #fff; letter-spacing: 2px; }
+.nav-title span { color: #f59e0b; font-weight: 800; font-size: 1.1rem; }
+
+.btn-orange {
+    background: #f59e0b;
+    color: #000;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-orange:hover { transform: scale(1.05); }
+
+.report-scroll-area {
+    background: #111a2e;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.revenue-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.revenue-table th {
+    background: #0a0f1d;
+    color: #f59e0b;
+    padding: 18px;
+    border: 1px solid #1e293b;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.sub-head-row th { background: #111a2e; color: #94a3b8; }
+
+.revenue-table td {
+    padding: 16px 25px;
+    border: 1px solid #1e293b;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.text-right { text-align: right; font-family: 'Courier New', Courier, monospace; }
+
+.row-highlight { color: #f59e0b; }
+.row-credit { color: #38bdf8; }
+
+.row-grand-total {
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.row-grand-total td {
+    color: #f59e0b;
+    font-size: 1.3rem;
+    border-top: 3px solid #f59e0b;
+}
+
+.nav-back { color: #94a3b8; text-decoration: none; font-weight: 700; }
+.nav-stat { font-weight: 800; color: #64748b; }

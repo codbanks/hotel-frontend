@@ -1,0 +1,180 @@
+/* ------------------------------------------------ */
+/* SalesMarketing.css: Styles for Sales Segmentation Report */
+/* ------------------------------------------------ */
+
+/* Reusing common variables (assuming they are set in a global file, 
+   but redefined here for completeness/preview consistency) */
+:root {
+    --bg-main: #0e1625;
+    --bg-card: rgba(255, 255, 255, 0.04);
+    --bg-row-alt: rgba(255, 255, 255, 0.06);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-dim: #9ca3af;
+    --accent: #ffb547;
+    --negative: #ff6b6b;
+    --positive: #51cf66;
+}
+
+.sales-marketing-container {
+    font-family: "Poppins", sans-serif;
+    color: var(--text-main);
+    padding: 1.5rem 2rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Header (Reusing styles from OccupancySales for consistency) */
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.report-header-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.report-title {
+    color: var(--accent);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.report-sub {
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin: 0.3rem 0 0 0;
+}
+
+.date-nav-btn {
+    background: var(--accent);
+    border: none;
+    color: #000;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.date-nav-btn:hover {
+    background: #ffd178;
+    transform: scale(1.05);
+}
+
+/* Table Specific Styles */
+.table-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: auto;
+    border-radius: 14px;
+    border: 1px solid var(--border-glass);
+    background: var(--bg-card);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    min-width: 1400px; /* Ensure space for 13 columns (1 + 6 + 6) */
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 0.9rem;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--bg-main);
+}
+
+th {
+    font-weight: 600;
+    color: var(--accent);
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--border-glass);
+    border-right: 1px solid var(--border-glass);
+    background: var(--bg-main);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+th.group-header {
+    text-align: center;
+    background: rgba(255, 181, 71, 0.1);
+    border-bottom: none;
+}
+
+td {
+    padding: 0.8rem;
+    text-align: right; /* Default to right for numeric data */
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-glass);
+    border-right: 1px solid var(--border-glass);
+    white-space: nowrap;
+}
+
+/* Segment Name column */
+td:first-child, th:first-child {
+    text-align: left;
+    padding-left: 1.5rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    width: 150px; /* fixed width for segment name */
+}
+
+/* Highlighted rows for totals */
+.total-row td {
+    font-weight: 700;
+    background: rgba(255, 181, 71, 0.15); /* Slightly brighter background for totals */
+    color: var(--accent);
+}
+
+.grand-total-row td {
+    font-weight: 700;
+    background: rgba(255, 181, 71, 0.25);
+    color: var(--accent);
+    border-top: 3px double var(--accent);
+}
+
+tbody tr:nth-child(even):not(.total-row):not(.grand-total-row) {
+    background: var(--bg-row-alt);
+}
+
+tbody tr:hover:not(.total-row):not(.grand-total-row) {
+    background: rgba(255, 255, 255, 0.08);
+    transition: 0.2s ease;
+}
+
+/* Visual separation between Daily and MTD data */
+td:nth-child(7), th:nth-child(7) {
+    border-left: 2px solid var(--border-glass);
+}
+
+/* Format for currency columns (Revenue and AVE RM Rate) */
+.currency { text-align: right; }
+
+/* Styles for error/division by zero text */
+.error-text {
+    color: var(--negative);
+    font-weight: 600;
+}

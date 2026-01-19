@@ -1,0 +1,300 @@
+/* House status page - same luxury theme, preserved classes & behavior */
+
+/* Local fallbacks (global vars in global.css will be used if loaded) */
+:root {
+  --local-bg: #2b2418;
+}
+
+/* ===========================
+   Global Page Layout
+=========================== */
+.house-status-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--card-bg);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-color);
+  transition: all 0.28s ease;
+}
+
+/* Dark mode global (kept original class hooks) */
+.dark-mode .house-status-container {
+  background: #121212;
+  color: #e0e0e0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}
+
+/* Heading */
+.house-status-container h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  color: var(--gold);
+}
+
+/* ===========================
+   Top Toolbar (Date + Buttons)
+=========================== */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.toolbar input[type="date"] {
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-color);
+}
+.dark-mode .toolbar input[type="date"] {
+  background: #1e1e1e;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+/* Buttons (animated gold gradient + hover glow) */
+.toolbar button {
+  background: linear-gradient(90deg, rgba(198,168,78,0.95) 0%, rgba(224,185,74,0.95) 100%);
+  color: #111;
+  font-weight: 600;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.26s cubic-bezier(.22,.9,.35,1.05), box-shadow 0.26s ease;
+  margin-left: 5px;
+  box-shadow: 0 6px 16px rgba(198,168,78,0.08);
+}
+.toolbar button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(224,185,74,0.12);
+}
+.dark-mode .toolbar button {
+  background: var(--panel-strong);
+  color: var(--text-color);
+}
+
+/* ===========================
+   Filters
+=========================== */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.filters button {
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(198,168,78,0.08);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.filters button.active,
+.filters button:hover {
+  background: linear-gradient(90deg, rgba(198,168,78,0.12), rgba(198,168,78,0.04));
+  color: #000;
+}
+
+.dark-mode .filters button {
+  border-color: rgba(255,255,255,0.04);
+  color: var(--muted);
+}
+
+.dark-mode .filters button.active,
+.dark-mode .filters button:hover {
+  background: var(--accent-green);
+  color: #fff;
+}
+
+/* ===========================
+   Table Styles
+=========================== */
+.table-wrap {
+  overflow-x: auto;
+  max-height: 75vh;
+  overflow-y: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.house-status-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+/* Sticky header - preserved behavior but recolored */
+.house-status-table thead {
+  background: linear-gradient(180deg, rgba(20,20,20,0.98), rgba(18,18,18,0.98));
+  border-bottom: 2px solid rgba(255,255,255,0.04);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  color: var(--text-color);
+}
+
+.dark-mode .house-status-table thead {
+  background: #1f1f1f;
+  color: #fff;
+  border-bottom: 2px solid #333;
+}
+
+/* ===========================
+   Rows & Cells Adjustments
+=========================== */
+.house-status-table th,
+.house-status-table td {
+  border: 1px solid rgba(255,255,255,0.03);
+  padding: 6px 8px;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 50px;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+}
+
+.dark-mode .house-status-table th,
+.dark-mode .house-status-table td {
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* Column widths preserved */
+.house-status-table th:nth-child(1),
+.house-status-table td:nth-child(1) { width: 60px; }
+.house-status-table th:nth-child(2),
+.house-status-table td:nth-child(2) { width: 90px; }
+.house-status-table th:nth-child(3),
+.house-status-table td:nth-child(3) { width: 200px; }
+.house-status-table th:nth-child(10),
+.house-status-table td:nth-child(10) { width: 80px; }
+
+/* Zebra stripes & hover - refined colors */
+.house-status-table tbody tr:nth-child(odd) {
+  background: rgba(255,255,255,0.01);
+}
+.house-status-table tbody tr:hover {
+  background: rgba(224,185,74,0.02);
+}
+
+.dark-mode .house-status-table tbody tr:nth-child(odd) { background: #121212; }
+.dark-mode .house-status-table tbody tr:hover { background: #222; }
+
+/* Row states (occupied/unoccupied/out-of-order) - muted but readable */
+.house-status-table tbody tr.occupied td { background: rgba(34,128,54,0.06); color: var(--text-color); }
+.house-status-table tbody tr.unoccupied td { background: rgba(250,240,220,0.02); color: var(--text-color); }
+.house-status-table tbody tr.out-of-order td { background: rgba(255,182,182,0.03); color: var(--text-color); }
+
+.dark-mode .house-status-table tbody tr.occupied td { background: #203224; }
+.dark-mode .house-status-table tbody tr.unoccupied td { background: #2f2a22; }
+.dark-mode .house-status-table tbody tr.out-of-order td { background: #3b1f1f; }
+
+/* Inputs inside table - preserved */
+.house-status-table input {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  background: transparent;
+  text-align: center;
+  padding: 4px 2px;
+  color: var(--text-color);
+}
+.dark-mode .house-status-table input { color: #fff; }
+.house-status-table input[type="date"] { text-align: center; }
+
+/* Save button - gold gradient to match theme */
+.house-status-table button {
+  background: linear-gradient(90deg, rgba(198,168,78,0.95), rgba(224,185,74,0.95));
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.house-status-table button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(224,185,74,0.12);
+}
+
+.dark-mode .house-status-table button {
+  background: #43a047;
+}
+
+/* Optional: consistent row height */
+.house-status-table tbody tr { height: 45px; }
+
+/* ===========================
+   Last 5 Days Cards
+=========================== */
+.last-five { margin-top: 20px; }
+.last-five-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.last-five-card {
+  background: rgba(255,255,255,0.02);
+  padding: 10px;
+  border-radius: 6px;
+  min-width: 120px;
+  text-align: center;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+}
+
+.dark-mode .last-five-card { background: #1f1f1f; color: #fff; }
+
+.last-five-card .view-day {
+  margin-top: 5px;
+  background: linear-gradient(90deg, rgba(198,168,78,0.9), rgba(224,185,74,0.9));
+  color: #111;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.last-five-card .view-day:hover { transform: translateY(-3px); }
+
+.dark-mode .last-five-card .view-day { background: var(--gold); }
+
+/* Messages */
+.message {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+}
+.message--ok { background: rgba(212,237,218,0.06); color: #bff0c0; }
+.message--err { background: rgba(248,215,218,0.04); color: #ffb2b2; }
+
+.dark-mode .message--ok { background: #233222; color: #b2ffb2; }
+.dark-mode .message--err { background: #351616; color: #ffb2b2; }
+
+/* ===========================
+   Print Styles
+=========================== */
+@media print {
+  body { background: white; }
+  .house-status-container { box-shadow: none; border: none; max-width: 100%; padding: 0; }
+  .toolbar { display: none; }
+  .house-status-table th { background: #f0f0f0 !important; 
+    -webkit-print-color-adjust: exact; }
+}

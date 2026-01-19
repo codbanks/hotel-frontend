@@ -1,0 +1,128 @@
+:root {
+    --bg-dark-2: #0e1625;
+    --bg-panel-2: #1c2533;
+    --pumpkin-orange: #ffb547;
+    --text-white: #ffffff;
+    --text-gray: #a0aec0;
+    --border-line: rgba(255, 255, 255, 0.1);
+}
+
+.debtors-container {
+    background-color: var(--bg-dark-2);
+    padding: 2rem;
+    color: var(--text-white);
+    font-family: 'Poppins', sans-serif;
+    border-radius: 8px;
+}
+
+.debtors-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid var(--pumpkin-orange);
+    padding-left: 15px;
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* NEW CONTROLS STYLING */
+.report-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-btn {
+    background: var(--bg-panel-2);
+    color: var(--pumpkin-orange);
+    border: 1px solid var(--pumpkin-orange);
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: var(--pumpkin-orange);
+    color: #000;
+}
+
+.refresh-btn {
+    background: transparent;
+    color: var(--text-gray);
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.debtors-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    color: var(--pumpkin-orange);
+}
+
+.date-tag {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/* TABLE STYLES */
+.table-responsive {
+    overflow-x: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+.debtors-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-panel-2);
+}
+
+.debtors-table thead th {
+    background: #111a2b;
+    color: var(--text-gray);
+    padding: 12px 15px;
+    border: 1px solid var(--border-line);
+}
+
+.debtors-table .group-head {
+    background: rgba(255, 181, 71, 0.1);
+    color: var(--pumpkin-orange);
+    text-align: center;
+}
+
+.debtors-table .numeric {
+    text-align: right;
+    font-family: 'Courier New', monospace;
+}
+
+.status-cell {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-gray);
+}
+
+/* Footer Totals */
+.debtors-table tfoot .grand-total td {
+    background: var(--pumpkin-orange);
+    color: #0e1625;
+    font-weight: 800;
+}
+
+.debtors-table tfoot .highlight {
+    background: #fff;
+    color: #000;
+    border: 2px solid var(--pumpkin-orange);
+}
