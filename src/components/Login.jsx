@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/Login.css";
-import api from "../api/api"; // Import the new api instance
+import api from "../api/api"; 
 
 export default function Login({ onAuth }) {
   const [username, setUsername] = useState("");
@@ -8,13 +8,12 @@ export default function Login({ onAuth }) {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   
-  // We check session storage for initial state
-  const [loggedIn, setLoggedIn] = useState(!!sessionStorage.getItem("access"));
+  // Use localStorage to match your api.js interceptor
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("access"));
   
   const cardRef = useRef(null);
   const sparksRef = useRef(null);
 
-  // 🔹 Spark effect (Unchanged)
   useEffect(() => {
     const container = sparksRef.current;
     if (!container) return;
@@ -30,11 +29,9 @@ export default function Login({ onAuth }) {
     }
   }, []);
 
-  // 🔹 3D Tilt effect (Unchanged)
   useEffect(() => {
     const el = cardRef.current;
     if (!el) return;
-
     const handleMove = (e) => {
       const rect = el.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
@@ -44,7 +41,6 @@ export default function Login({ onAuth }) {
     const handleLeave = () => {
       el.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0)";
     };
-
     el.addEventListener("mousemove", handleMove);
     el.addEventListener("mouseleave", handleLeave);
     return () => {
@@ -53,22 +49,21 @@ export default function Login({ onAuth }) {
     };
   }, []);
 
-  // 🔹 Login handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErr("");
     setLoading(true);
 
     try {
-      // Use our new API instance (path is relative to baseURL in api.js)
+      // The API call to your Render backend
       const res = await api.post("/token/", { username, password });
 
-      // ✅ Use sessionStorage so it clears on browser close
-      sessionStorage.setItem("access", res.data.access);
-      sessionStorage.setItem("refresh", res.data.refresh);
+      // ✅ Changed to localStorage to match your api.js logic
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
 
       if (res.data.user) {
-        sessionStorage.setItem("user_payload", JSON.stringify(res.data.user));
+        localStorage.setItem("user_payload", JSON.stringify(res.data.user));
       }
 
       setLoggedIn(true);
@@ -77,7 +72,6 @@ export default function Login({ onAuth }) {
       console.error("Login failed:", error);
       const msg =
         error.response?.data?.detail ||
-        error.response?.data?.message ||
         "Invalid username or password.";
       setErr(msg);
     } finally {
@@ -85,11 +79,10 @@ export default function Login({ onAuth }) {
     }
   };
 
-  // 🔹 Logout handler
   const handleLogout = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     setLoggedIn(false);
-    window.location.reload(); // Force reload to reset app state
+    window.location.reload(); 
   };
 
   return (
@@ -128,7 +121,7 @@ export default function Login({ onAuth }) {
                   id="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="user@example.com"
+                  placeholder="Admin username"
                   required
                 />
               </div>
@@ -145,16 +138,6 @@ export default function Login({ onAuth }) {
                 />
               </div>
 
-              <div className="form-row">
-                <div style={{ flex: 1 }} />
-                <div style={{ color: "var(--muted)", fontSize: 12 }}>
-                  Forgot password?{" "}
-                  <a href="#" style={{ color: "var(--gold)" }}>
-                    Reset
-                  </a>
-                </div>
-              </div>
-
               <div className="actions">
                 <button className="login-btn" type="submit" disabled={loading}>
                   {loading ? "Logging in..." : "Sign in"}
@@ -167,16 +150,8 @@ export default function Login({ onAuth }) {
                 </div>
               )}
 
-              <div className="alt-actions">
-                <span>Or continue with</span>
-                <a href="#" onClick={(e) => e.preventDefault()}>
-                  {" "}
-                  SSO{" "}
-                </a>
-              </div>
-
               <div className="login-foot">
-                © {new Date().getFullYear()} Pumpkin Hotel • Built with care
+                © {new Date().getFullYear()} Pumpkin Hotel
               </div>
             </form>
           </>
