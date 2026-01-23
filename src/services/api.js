@@ -1,7 +1,7 @@
-// src/services/api.js
 import axios from 'axios';
 
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://127.0.0.1:8000/api/v2';
+// Updated to your live Render URL and v1 path
+const API_BASE = 'https://hotel-backend-h8nz.onrender.com/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -30,23 +30,22 @@ api.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          const res = await axios.post(`${API_BASE.replace('/v2', '/v1')}/token/refresh/`, {
+          // Simplified to use the same v1 base path
+          const res = await axios.post(`${API_BASE}/token/refresh/`, {
             refresh: refreshToken,
           });
 
-          // Save new access token
           localStorage.setItem('access', res.data.access);
           originalRequest.headers.Authorization = `Bearer ${res.data.access}`;
 
-          // Retry original request
           return api(originalRequest);
         } catch (err) {
           localStorage.removeItem('access');
           localStorage.removeItem('refresh');
-          window.location.href = '/login'; // Redirect to login if refresh fails
+          window.location.href = '/login'; 
         }
       } else {
-        window.location.href = '/login'; // No refresh token, force login
+        window.location.href = '/login'; 
       }
     }
 
