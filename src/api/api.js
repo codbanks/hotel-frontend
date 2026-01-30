@@ -1,70 +1,47 @@
-import axios from "axios";
+// src/services/api.js
+import axios from 'axios';
 
-// Match your Django URL
-const BASE_URL = "http://localhost:8000/api/v2";
+// Create React App uses process.env instead of import.meta.env
+const isDevelopment = process.env.NODE_ENV === 'development';
 
-// Create a standalone axios instance
+const API_BASE = isDevelopment 
+  ? process.env.REACT_APP_API_BASE_URL_LOCAL 
+  : process.env.REACT_APP_API_BASE_URL_DEPLOY;
+
 const api = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL: API_BASE,
+  headers: { 'Content-Type': 'application/json' },
 });
 
-// 1. Request Interceptor: Auto-attach token
+// Interceptors remain the same...
 api.interceptors.request.use(
   (config) => {
-    // We use sessionStorage so it dies when browser closes
-    const token = sessionStorage.getItem("access");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    const token = localStorage.getItem('access');
+    if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-// 2. Response Interceptor: Auto-refresh on 401
 api.interceptors.response.use(
-  (response) => response, // If success, just return response
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
-    // If error is 401 (Unauthorized) and we haven't tried refreshing yet
-    if (
-      error.response &&
-      error.response.status === 401 &&
-      !originalRequest._retry
-    ) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = sessionStorage.getItem("refresh");
-
+      const refreshToken = localStorage.getItem('refresh');
       if (refreshToken) {
         try {
-          // Attempt to get a new access token
-          const res = await axios.post(`${BASE_URL}/token/refresh/`, {
-            refresh: refreshToken,
-          });
-
-          // Success: Save new token to session
-          const newAccess = res.data.access;
-          sessionStorage.setItem("access", newAccess);
-
-          // Update header and retry the failed request
-          api.defaults.headers.common["Authorization"] = `Bearer ${newAccess}`;
-          originalRequest.headers["Authorization"] = `Bearer ${newAccess}`;
-          
+          const refreshUrl = `${API_BASE.replace('/v2', '/v1')}/token/refresh/`;
+          const res = await axios.post(refreshUrl, { refresh: refreshToken });
+          localStorage.setItem('access', res.data.access);
+          originalRequest.headers.Authorization = `Bearer ${res.data.access}`;
           return api(originalRequest);
-        } catch (refreshError) {
-          // Refresh failed (token expired completely) -> Logout user
-          console.error("Session expired:", refreshError);
-          sessionStorage.clear();
-          window.location.href = "/"; // Hard redirect to login
+        } catch (err) {
+          localStorage.removeItem('access');
+          localStorage.removeItem('refresh');
+          window.location.href = '/login';
         }
-      } else {
-        // No refresh token available -> Logout
-        sessionStorage.clear();
-        window.location.href = "/";
       }
     }
     return Promise.reject(error);
