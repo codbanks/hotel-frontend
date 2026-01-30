@@ -1,6 +1,6 @@
 {
   "name": "hotel-frontend",
-  "homepage": "https://codbanks.github.io/hotel-backend",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
