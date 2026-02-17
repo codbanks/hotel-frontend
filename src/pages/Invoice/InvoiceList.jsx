@@ -1,36 +1,30 @@
 import React, { useEffect, useState } from "react";
-// 🚀 Importing the centralized API handler
 import api from "../../api/api"; 
-import { useNavigate, Link } from "react-router-dom"; // Import Link for navigation
+import { useNavigate } from "react-router-dom";
 import "./InvoiceList.css"; 
 
-// --- Helper: Format Dates ---
 const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     try {
-        // Use Date object for consistent formatting, then strip time for YYYY-MM-DD
         return new Date(dateString).toISOString().split('T')[0];
     } catch (e) {
         return dateString;
     }
 };
 
-// 🔹 ACCEPT 'onEdit' PROP FROM PARENT
 const InvoiceList = ({ refreshTrigger = 0, onEdit }) => {
     const navigate = useNavigate();
-    // Use an array to store combined invoices
     const [invoices, setInvoices] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // 🛑 Retrieve tokens from sessionStorage
-    const access = sessionStorage.getItem("access");
+    // ✅ FIXED: Changed from sessionStorage to localStorage to match Login.js
+    const access = localStorage.getItem("access");
     
-    // --- Helper: Get Base URL for PDF Links ---
-    // Use window.location.origin as a fallback if BASE_URL is not reliable
-    const BASE_API_URL = `${window.location.origin}/api/v1`; 
+    // ✅ IMPROVED: Define base URL dynamically from your api instance if possible, 
+    // or use a dedicated environment variable.
+    const BASE_API_URL = api.defaults.baseURL || `${window.location.origin}/api/v1`; 
 
-    // --- Fetch ALL invoices from API ---
     const fetchInvoices = async () => {
         setLoading(true);
         setError(null);
@@ -41,45 +35,39 @@ const InvoiceList = ({ refreshTrigger = 0, onEdit }) => {
         }
 
         try {
-            // 1. Fetch Guest Invoices
-            const guestRes = api.get("/invoice/invoices/");
-
-            // 2. Fetch Staff Invoices
-            const staffRes = api.get("/staff-invoice/invoices/");
-
-            // Wait for both promises to resolve
-            const [guestData, staffData] = await Promise.all([guestRes, staffRes]);
+            // 1. Fetch Guest and Staff Invoices in parallel
+            const [guestData, staffData] = await Promise.all([
+                api.get("/invoice/invoices/"),
+                api.get("/staff-invoice/invoices/")
+            ]);
             
-            // 3. Normalize Guest Invoices
+            // 2. Normalize Guest Invoices
             const guestInvoices = (guestData.data || []).map(inv => ({
                 ...inv,
                 type: 'Guest',
-                // Map API fields to common display fields
                 invoice_number: inv.invoice_number,
                 name: inv.name || inv.company_account_no, 
                 roomNo: inv.room_no || 'N/A',
                 arrival: formatDate(inv.arrival_date),
                 departure: formatDate(inv.departure_date),
-                created_at: inv.created_at || new Date().toISOString(), // Fallback for sorting
+                created_at: inv.created_at || new Date().toISOString(),
             }));
 
-            // 4. Normalize Staff Invoices
+            // 3. Normalize Staff Invoices
             const staffInvoices = (staffData.data || []).map(inv => ({
                 ...inv,
                 type: 'Staff',
-                // Map staff-specific fields to common display fields
                 invoice_number: inv.invoice_number,
-                name: inv.staff_name || 'Staff Account', // Use staff_name
-                roomNo: 'Staff', // Specific label for display
-                arrival: 'N/A', // Staff invoices don't have this
-                departure: 'N/A', // Staff invoices don't have this
-                created_at: inv.created_at, // Use created_at for sorting
+                name: inv.staff_name || 'Staff Account',
+                roomNo: 'Staff',
+                arrival: 'N/A',
+                departure: 'N/A',
+                created_at: inv.created_at,
             }));
 
-            // 5. Combine, Sort (Latest first), and Limit (Optional: slice(0, 20))
+            // 4. Combine and Sort (Latest first)
             const combinedInvoices = [...guestInvoices, ...staffInvoices]
                 .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                // If you want to limit to 20 recent, add .slice(0, 20) here
             
             setInvoices(combinedInvoices);
 
@@ -92,13 +80,10 @@ const InvoiceList = ({ refreshTrigger = 0, onEdit }) => {
         }
     };
 
-    // --- Load invoices on mount or refresh trigger ---
     useEffect(() => {
         fetchInvoices();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refreshTrigger]);
+    }, [refreshTrigger, access]); // Added access to dependency to re-fetch if token changes
 
-    // --- UI ---
     if (loading) return <p className="loading-text">Loading invoices...</p>;
     if (error) return <p className="error-text">Error: {error}</p>;
 
@@ -117,7 +102,6 @@ const InvoiceList = ({ refreshTrigger = 0, onEdit }) => {
                     <table className="invoice-list-table">
                         <thead>
                             <tr>
-                                {/* 🌟 New Column: Type */}
                                 <th style={{width: '8%'}}>Type</th> 
                                 <th style={{width: '10%'}}>Invoice No</th>
                                 <th style={{width: '25%'}}>Name / Account</th>
@@ -130,19 +114,14 @@ const InvoiceList = ({ refreshTrigger = 0, onEdit }) => {
                         </thead>
                         <tbody>
                             {invoices.map((inv) => {
-                                // Determine the base API path for PDF/Detail links
                                 const apiPath = inv.type === 'Staff' ? 'staff-invoice' : 'invoice';
 
                                 return (
                                     <tr
                                         key={`${inv.type}-${inv.id}`}
                                         className={`clickable-row ${inv.type.toLowerCase()}-row`}
-                                        // Optional: Navigate to a detailed view if you have one
-                                        // onClick={() => navigate(`/${apiPath}/${inv.id}`)}
                                     >
-                                        {/* 🌟 Type Column */}
                                         <td className={`type-tag type-${inv.type.toLowerCase()}`}>{inv.type}</td>
-                                        
                                         <td className="highlight-text">{inv.invoice_number}</td>
                                         <td>{inv.name}</td>
                                         <td><span className="room-badge">{inv.roomNo}</span></td>
@@ -151,7 +130,6 @@ const InvoiceList = ({ refreshTrigger = 0, onEdit }) => {
                                         <td>{inv.receptionist}</td>
                                         
                                         <td className="action-col">
-                                            {/* 🔹 EDIT BUTTON (Only for Guest Invoices) */}
                                             {inv.type === 'Guest' && (
                                                 <button 
                                                     onClick={(e) => { e.stopPropagation(); onEdit(inv); }}
@@ -170,7 +148,6 @@ const InvoiceList = ({ refreshTrigger = 0, onEdit }) => {
                                                 </button>
                                             )}
                                             
-                                            {/* 🔹 PDF Link (Uses correct API path based on type) */}
                                             <a
                                                 href={`${BASE_API_URL}/${apiPath}/invoices/${inv.id}/pdf/`}
                                                 onClick={(e) => e.stopPropagation()}

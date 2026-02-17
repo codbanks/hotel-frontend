@@ -25,15 +25,8 @@ const Invoice = () => {
     const [showGuestModal, setShowGuestModal] = useState(false); // Renamed for clarity
     const [showStaffModal, setShowStaffModal] = useState(false); 
     const [isEditing, setIsEditing] = useState(false); 
-    const [editingId, setEditingId] = useState(null);  
+    const [editingId, setEditingId] = useState(null);  
     const [refreshListTrigger, setRefreshListTrigger] = useState(0); 
-
-    const access = sessionStorage.getItem("access"); 
-    const isLoggedIn = !!access;
-
-    useEffect(() => {
-        if (!isLoggedIn) navigate("/login");
-    }, [isLoggedIn, navigate]);
 
     // --- HELPER: Get Current Logged In User ---
     const getReceptionistName = () => {
@@ -85,10 +78,10 @@ const Invoice = () => {
             adults: invoice.adults,
             children: invoice.children,
             rateAllocated: invoice.rate_allocated,
-            companyAccount: invoice.company_account_no,
+            company_account_no: invoice.company_account_no,
             receptionist: getReceptionistName(), // Log the person making the EDIT
-            vatNumber: invoice.vat_number,
-            invoiceNo: invoice.invoice_number,
+            vat_number: invoice.vat_number,
+            invoice_number: invoice.invoice_number,
         });
 
         try {

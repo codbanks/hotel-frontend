@@ -8,7 +8,7 @@ export default function Login({ onAuth }) {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   
-  // Use localStorage to match your api.js interceptor
+  // Consistently using localStorage
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("access"));
   
   const cardRef = useRef(null);
@@ -55,10 +55,9 @@ export default function Login({ onAuth }) {
     setLoading(true);
 
     try {
-      // The API call to your Render backend
       const res = await api.post("/token/", { username, password });
 
-      // ✅ Changed to localStorage to match your api.js logic
+      // Save to localStorage
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
 
